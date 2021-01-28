@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 public class Util {
 
     private final static Logger LOGGER = Logger.getLogger("devops.subnivel.Control");
+    private final static String IND_UF = "uf";
 
     /**
      * Método para cacular el 10% del ahorro en la AFP.  Las reglas de negocio se pueden conocer en 
@@ -22,8 +23,10 @@ public class Util {
      * @return
      */
     public static int getDxc(int ahorro, int sueldo){
-        if(((ahorro*0.1)/getUf()) > 150 ){
-            return (int) (150*getUf()) ;
+        int uf = getUf();
+
+        if(((ahorro*0.1)/uf) > 150 ){
+            return (int) (150*uf) ;
         } else if((ahorro*0.1)<=1000000 && ahorro >=1000000){
             return (int) 1000000;
         } else if( ahorro <=1000000){
@@ -39,16 +42,7 @@ public class Util {
      * @return
      */
     public static int getUf(){
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String fecha = simpleDateFormat.format(Calendar.getInstance().getTime());
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> call= restTemplate.getForEntity("https://mindicador.cl/api/uf/" + fecha, String.class);
-
-        Gson gson = new Gson();
-        Indicador indicador = gson.fromJson(call.getBody().toLowerCase(), Indicador.class);
-
-        LOGGER.log(Level.INFO, "< Trabajo DevOps - DXC > <Consultado U.F del día: " + indicador.getSerie().get(0).getValor() + " >");
+        Indicador indicador = getIndicadorDiario(IND_UF);
 
         return (int)indicador.getSerie().get(0).getValor();
     }
@@ -76,6 +70,26 @@ public class Util {
         }
 
         return (int)impuesto;
+    }
+
+    /**
+     * Método que consulta el valor del día asociado al indicador
+     * @param ind
+     * @return
+     */
+    public static Indicador getIndicadorDiario(String ind){
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String fecha = simpleDateFormat.format(Calendar.getInstance().getTime());
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> call= restTemplate.getForEntity("https://mindicador.cl/api/" + ind + "/" + fecha, String.class);
+
+        Gson gson = new Gson();
+        Indicador indicador = gson.fromJson(call.getBody().toLowerCase(), Indicador.class);
+
+        LOGGER.log(Level.INFO, "< Trabajo DevOps - DXC > <Consultado " + ind + " del día: " + indicador.getSerie().get(0).getValor() + " >");
+
+        return indicador;
     }
     
 }
