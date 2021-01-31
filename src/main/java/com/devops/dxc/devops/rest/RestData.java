@@ -3,29 +3,43 @@ package com.devops.dxc.devops.rest;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.devops.dxc.devops.model.Dxc;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.PositiveOrZero;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping(path = "/rest/msdxc")
 @CrossOrigin("*")
-@Validated
 public class RestData {
 	
 	private final static Logger LOGGER = Logger.getLogger("devops.subnivel.Control");
 
 	@GetMapping(path = "/dxc", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Dxc getData(@RequestParam("sueldo") @NotEmpty(message = "Sueldo es requerido") String sueldo,
-									 @RequestParam("ahorro") @NotEmpty(message = "Ahorro es requerido") String ahorro){
+	public ResponseEntity<Dxc> getData(@RequestParam("sueldo") String sueldo, @RequestParam("ahorro") String ahorro){
 		
 		LOGGER.log(Level.INFO, "< Trabajo DevOps - DXC > <Consultado Diez por ciento>");
-		
-        Dxc response = new Dxc(Integer.parseInt(ahorro), Integer.parseInt(sueldo));
+
+		int iAhorro = 0;
+		int iSueldo = 0;
+
+		try{
+			iAhorro = Integer.parseInt(ahorro);
+		} catch (NumberFormatException nex){
+			throw new ResponseStatusException(
+					HttpStatus.BAD_REQUEST, "Parámetro Ahorro debe ser numérico");
+		}
+
+		try{
+			iSueldo = Integer.parseInt(sueldo);
+		} catch (NumberFormatException nex){
+			throw new ResponseStatusException(
+					HttpStatus.BAD_REQUEST, "Parámetro Sueldo debe ser numérico");
+		}
+
+		Dxc dxc = new Dxc(iAhorro, iSueldo);
+		ResponseEntity<Dxc> response = new ResponseEntity<>(dxc, HttpStatus.OK);
 		return response;
 	}
 }
