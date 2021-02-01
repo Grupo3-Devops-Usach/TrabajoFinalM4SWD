@@ -19,5 +19,11 @@ pipeline {
                 bat 'mvn test'
             }
         }
+
+        stage('Postman Newman') {
+            steps {
+                bat 'newman run Dxc.postman_collection.json'
+            }
+        }
     }
 }
