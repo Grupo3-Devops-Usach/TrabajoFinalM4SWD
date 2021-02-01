@@ -15,7 +15,7 @@ public class Util {
     private final static String IND_UF = "uf";
 
     /**
-     * Método para cacular el 10% del ahorro en la AFP.  Las reglas de negocio se pueden conocer en 
+     * Método para cacular el 10% del ahorro en la AFP. Las reglas de negocio se pueden conocer en
      * https://www.previsionsocial.gob.cl/sps/preguntas-frecuentes-nuevo-retiro-seguro-10/
      * 
      * @param ahorro
@@ -47,7 +47,8 @@ public class Util {
     }
 
     /**
-     * Método para calcular el impuesto asociado al retiro del 10%
+     * Método para calcular el impuesto asociado al retiro del 10%. Las información de rangos y factores se puede
+     * conocer en https://www.sii.cl/valores_y_fechas/renta/2020/personas_naturales.html
      *
      * @param sueldo
      * @return
@@ -56,15 +57,17 @@ public class Util {
         double impuesto = 0;
         int sueldoAnual = sueldo * 12;
 
-        if(sueldoAnual>=17864280 && sueldoAnual<=29773800){
+        if(sueldoAnual>=8038926.01 && sueldoAnual<=17864280.00) {
+            impuesto = dxc * 0.04;
+        }else if(sueldoAnual>=17864280.01 && sueldoAnual<=29773800.00){
             impuesto = dxc * 0.08;
-        }else if(sueldoAnual>=29773801 && sueldoAnual<=41600000) {
+        }else if(sueldoAnual>=29773800.01 && sueldoAnual<=41683320.00) {
             impuesto = dxc * 0.135;
-        }else if(sueldoAnual>=41600001 && sueldoAnual<=53500000) {
+        }else if(sueldoAnual>=41683320.01 && sueldoAnual<=53592840.00) {
             impuesto = dxc * 0.23;
-        }else if(sueldoAnual>=53500001 && sueldoAnual<=71400000) {
+        }else if(sueldoAnual>=53592840.01 && sueldoAnual<=71457120.00) {
             impuesto = dxc * 0.304;
-        }else if(sueldoAnual>=71400001) {
+        }else if(sueldoAnual>=71457120.01) {
             impuesto = dxc * 0.35;
         }
 
