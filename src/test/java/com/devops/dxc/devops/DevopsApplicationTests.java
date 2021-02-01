@@ -87,9 +87,17 @@ class DevopsApplicationTests {
 	}
 
 	@Test
-	void testImpuesto1() {	// < 1,488,690
-		Dxc diezxciento = new Dxc(5000000,1200000);
-		assertEquals("Impuesto 0.08 primer rango de sueldos",(0), diezxciento.getImpuesto());
+	void testImpuesto0() {	// < 669,910
+		Dxc diezxciento = new Dxc(5000000,450000);
+		diezxciento.getDxc();
+		assertEquals("Impuesto 0.08 primer rango de sueldos",0, diezxciento.getImpuesto());
+	}
+
+	@Test
+	void testImpuesto1() {	// 669,910 - 1,488,690
+		Dxc diezxciento = new Dxc(50000000,1200000);
+		diezxciento.getDxc();
+		assertEquals("Impuesto 0.08 primer rango de sueldos",(int)(0.04*150*getUf()), diezxciento.getImpuesto());
 	}
 
 	@Test
