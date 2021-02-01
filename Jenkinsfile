@@ -33,5 +33,11 @@ pipeline {
             }
         }
 
+        stage('JMeter') {
+            steps {
+                bat "mvn verify -Pperformance"
+            }
+        }
+
     }
 }

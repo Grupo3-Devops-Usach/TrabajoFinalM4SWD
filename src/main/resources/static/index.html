@@ -22,7 +22,7 @@
 			
 			$.ajax({
 				type: "GET",
-				url: "http://localhost:8080/rest/msdxc/dxc?ahorro=" + ahorro + "&sueldo=" + sueldo,
+				url: "http://localhost:8081/rest/msdxc/dxc?ahorro=" + ahorro + "&sueldo=" + sueldo,
 				cache: false,
 				success: function(data){
 					$("#dxcId").val(data.dxc);
