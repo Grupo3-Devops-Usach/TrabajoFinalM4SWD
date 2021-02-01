@@ -25,7 +25,7 @@
 							"});",
 							"",
 							"pm.test(\"Response time is less than 1200ms\", () =>{",
-							" pm.expect(pm.response.responseTime).to.be.below(1200);",
+							" pm.expect(pm.response.responseTime).to.be.below(2000);",
 							"});",
 							"",
 							"pm.test(\"el saldo es igual a\",() => {",
