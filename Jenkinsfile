@@ -19,11 +19,5 @@ pipeline {
                 bat 'mvn test'
             }
         }
-
-        stage('Test WS Postman') {
-            steps {
-                bat 'newman run Dxc.postman_collection.json'
-            }
-        }
     }
 }
