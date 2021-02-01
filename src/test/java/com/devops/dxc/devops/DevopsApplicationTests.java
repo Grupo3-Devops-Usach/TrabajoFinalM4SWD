@@ -5,7 +5,9 @@ import com.devops.dxc.devops.model.Util;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static com.devops.dxc.devops.model.Util.getUf;
 import static org.springframework.test.util.AssertionErrors.assertEquals;
+import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 @SpringBootTest
 class DevopsApplicationTests {
@@ -19,7 +21,7 @@ class DevopsApplicationTests {
 	@Test
 	void testRetiroMaximo(){
 		Dxc diezxciento = new Dxc(70000000, 0);
-		int uf = Util.getUf();
+		int uf = getUf();
 		assertEquals("Retiro máximo", (uf * 150), diezxciento.getDxc());
 	}
 
@@ -28,7 +30,7 @@ class DevopsApplicationTests {
 	void testSaldoRetiroMaximo(){
 		Dxc diezxciento = new Dxc(70000000, 0);
 		diezxciento.getDxc();
-		int uf = Util.getUf();
+		int uf = getUf();
 
 		assertEquals("Saldo retiro máximo", (70000000-(uf * 150)), diezxciento.getSaldo());
 	}
