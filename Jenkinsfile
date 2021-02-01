@@ -1,29 +1,30 @@
 pipeline {
     agent any
 
-    stages {
+     stages {
         stage('Build') {
             steps {
-                bat 'mvn clean'
+                bat "mvnw.cmd clean"
+            }
+        }
+
+        stage('compile') {
+            steps {
+                bat "mvnw.cmd compile"
             }
         }
 
         stage('test') {
             steps {
-                bat 'mvn compile'
+                bat "mvnw.cmd test"
             }
         }
 
-        stage('test2') {
+        stage('test WS postman') {
             steps {
-                bat 'mvn test'
+                bat "newman run Dxc.postman_collection.json"
             }
         }
 
-        stage('Test WS Postman') {
-            steps {
-                bat 'newman run .\Dxc.postman_collection.json'
-            }
-        }
     }
 }
