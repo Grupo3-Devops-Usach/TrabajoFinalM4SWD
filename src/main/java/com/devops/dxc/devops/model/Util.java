@@ -1,11 +1,14 @@
 package com.devops.dxc.devops.model;
 
+import com.devops.dxc.devops.model.entity.FechaxDia;
+import com.devops.dxc.devops.model.service.FechaxDiaServiceImpl;
 import com.google.gson.Gson;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,7 +25,7 @@ public class Util {
      * @return
      */
     public static int getDxc(int ahorro){
-        int uf = getUf();
+        int uf = validaFecha().getValorUf();
 
         if(((ahorro*0.1)/uf) > 150 ){
             return (int) (150*uf) ;
@@ -89,7 +92,7 @@ public class Util {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String fecha = simpleDateFormat.format(Calendar.getInstance().getTime());
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> call= restTemplate.getForEntity("https://mindicador.cl/api/" + ind + "/" + fecha, String.class);
+        ResponseEntity<String> call= restTemplate.getForEntity("https://mindicador.cl/api/" + ind + "/" + fecha , String.class);
 
         Gson gson = new Gson();
         Indicador indicador = gson.fromJson(call.getBody().toLowerCase(), Indicador.class);
@@ -97,6 +100,18 @@ public class Util {
         LOGGER.log(Level.INFO, "< Trabajo DevOps - DXC > <Consultado " + ind + " del día: " + indicador.getSerie().get(0).getValor() + " >");
 
         return indicador;
+    }
+    
+    public static FechaxDia validaFecha() {
+    	FechaxDiaServiceImpl fechaService =  new FechaxDiaServiceImpl();
+    	FechaxDia fecha = fechaService.findByFecha(new Date());
+    	if(null == fecha) {
+    		fecha = new FechaxDia();
+    		fecha.setFecha(new Date());
+    		fecha.setValorUf((int)getIndicadorDiario(IND_UF).getSerie().get(0).getValor());
+    		fechaService.guardarFecha(fecha);
+    	}
+    	return fecha;
     }
     
 }

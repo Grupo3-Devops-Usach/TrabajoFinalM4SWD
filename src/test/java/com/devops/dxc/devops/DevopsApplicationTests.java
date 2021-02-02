@@ -14,7 +14,6 @@ import com.devops.dxc.devops.model.Util;
 @SpringBootTest
 class DevopsApplicationTests {
 
-
 	@Test
 	void testRetiroMenor1Millon() {
 		Dxc diezxciento = new Dxc(400000,700000);
@@ -26,7 +25,7 @@ class DevopsApplicationTests {
 	void testSaldoRetiroMaximo(){
 		Dxc diezxciento = new Dxc(70000000, 0);
 		diezxciento.getDxc();
-		int uf = Util.getUf();
+		int uf = Util.validaFecha().getValorUf();
 
 		assertEquals("Saldo retiro máximo", (70000000-(uf * 150)), diezxciento.getSaldo());
 	}
