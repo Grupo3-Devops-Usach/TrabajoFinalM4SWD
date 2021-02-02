@@ -41,7 +41,7 @@ pipeline {
         stage('Test WS Newman') {
             steps {
 				figlet "Test WS Newman"
-                bat "newman run Dxc.postman_collection.json --reporters cli,html,junit,htmlextra --reporter-htmlextra-export DXC.html --reporter-junit-export DXC.xml"
+                bat "newman run Dxc.postman_collection.json --reporters cli,junit,htmlextra,json --reporter-htmlextra-export DXC.html --reporter-junit-export DXC.xml --reporter-json-export DXC.json"
             }
         }
     }
