@@ -100,7 +100,9 @@
 		<script>
 			$(document).ready(function(){
 				$("#btnSolicitar").click(function(){
-					solicitardxcin();
+					if($("#dxcForm")[0].checkValidity()) {
+						solicitardxcin();
+					}
 				});
 				
 				$("#dxcForm").submit(function(e){
