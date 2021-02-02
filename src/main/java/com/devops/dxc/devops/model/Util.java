@@ -41,9 +41,14 @@ public class Util {
      * @return
      */
     public static int getUf(){
-        Indicador indicador = getIndicadorDiario(IND_UF);
+        if(IndicadorSingleton.getInstance().getIndicador() == null) {
+            IndicadorSingleton.getInstance().setIndicador(getIndicadorDiario(IND_UF));
+        }
 
-        return (int)indicador.getSerie().get(0).getValor();
+        LOGGER.log(Level.INFO, "< Trabajo DevOps - DXC > <Consultado " + IND_UF + " del día (S): " +
+                IndicadorSingleton.getInstance().getIndicador().getSerie().get(0).getValor() + " >");
+
+        return (int)IndicadorSingleton.getInstance().getIndicador().getSerie().get(0).getValor();
     }
 
     /**

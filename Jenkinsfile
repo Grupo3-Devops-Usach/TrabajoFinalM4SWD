@@ -16,9 +16,9 @@ pipeline {
             }
         }
 		
-		stage('Test & JMeter') {
+		stage('Test') {
             steps {
-				figlet "Test & JMeter"
+				figlet "Test"
 				bat 'mvn verify -Pperformance'
             }
         }
@@ -28,6 +28,13 @@ pipeline {
 				figlet "Run Jar"
                 bat 'start mvnw.cmd spring-boot:run'
                 sleep 10
+            }
+        }
+		
+		stage('JMeter') {
+            steps {
+				figlet "JMeter"
+				bat 'mvn verify -Pperformance'
             }
         }
 
