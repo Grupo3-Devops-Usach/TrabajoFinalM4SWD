@@ -9,23 +9,16 @@ pipeline {
             }
         }
 
-        stage('Comile') {
+        stage('Compile') {
             steps {
-				figlet "Comile"
+				figlet "Compile"
                 bat 'mvn compile'
             }
         }
-
-        stage('Test') {
-            steps {
-				figlet "Test"
-                bat 'mvn test'
-            }
-        }
 		
-		stage('JMeter') {
+		stage('Test & JMeter') {
             steps {
-				figlet "JMeter"
+				figlet "Test & JMeter"
 				bat 'mvn verify -Pperformance'
             }
         }
@@ -38,9 +31,9 @@ pipeline {
             }
         }
 
-        stage('test WS postman') {
+        stage('Test WS Newman') {
             steps {
-				figlet "test WS postman"
+				figlet "Test WS Newman"
                 bat "newman run Dxc.postman_collection.json"
             }
         }
