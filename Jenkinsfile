@@ -4,6 +4,7 @@ pipeline {
      stages {
         stage('Build') {
             steps {
+                figlet 'gradle'
                 bat "mvnw.cmd clean"
             }
         }
@@ -27,12 +28,12 @@ pipeline {
             }
         }
 
+
         stage('test WS postman') {
             steps {
                 bat "newman run Dxc.postman_collection.json"
             }
         }
-
         stage('JMeter') {
             steps {
                 bat "mvn verify -Pperformance"
