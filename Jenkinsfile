@@ -1,42 +1,47 @@
 pipeline {
     agent any
 
-     stages {
+    stages {
         stage('Build') {
             steps {
-                figlet 'gradle'
-                bat "mvnw.cmd clean"
+				figlet "Build"
+                bat 'mvn clean'
             }
         }
 
-        stage('compile') {
+        stage('Compile') {
             steps {
-                bat "mvnw.cmd compile"
+				figlet "Compile"
+                bat 'mvn compile'
+            }
+        }
+		
+		stage('Test') {
+            steps {
+				figlet "Test"
+				bat 'mvn verify -Pperformance'
+            }
+        }
+		
+		stage('Run Jar') {
+            steps {
+				figlet "Run Jar"
+                bat 'start mvnw.cmd spring-boot:run'
+                sleep 10
+            }
+        }
+		
+		stage('JMeter') {
+            steps {
+				figlet "JMeter"
+				bat 'mvn verify -Pperformance'
             }
         }
 
-        stage('test') {
+        stage('Test WS Newman') {
             steps {
-                bat "mvnw.cmd test"
-            }
-        }
-
-        stage('Run Jar') {
-            steps {
-                    bat 'start mvnw.cmd spring-boot:run'
-                    sleep 10
-            }
-        }
-
-
-        stage('test WS postman') {
-            steps {
+				figlet "Test WS Newman"
                 bat "newman run Dxc.postman_collection.json"
-            }
-        }
-        stage('JMeter') {
-            steps {
-                bat "mvn verify -Pperformance"
             }
         }
 

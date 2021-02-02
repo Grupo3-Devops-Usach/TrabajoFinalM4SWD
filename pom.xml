@@ -17,10 +17,7 @@
 		<java.version>8</java.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -46,11 +43,6 @@
 			<version>2.6</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -62,33 +54,31 @@
 		</plugins>
 	</build>
 	<profiles>
-
-        <profile>
-            <id>performance</id>
-            <build>
-               <plugins>
-                    <plugin>
-                        <groupId>com.lazerycode.jmeter</groupId>
-                        <artifactId>jmeter-maven-plugin</artifactId>
-                        <version>2.7.0</version>
-                        <executions>
-                            <execution>
-                                <id>jmeter-tests</id>
-                                <goals>
-                                    <goal>jmeter</goal>
-                                </goals>
-                                <phase>verify</phase>
-                            </execution>
-                        </executions>
-                        <configuration>            
-                            <generateReports>true</generateReports>
-                            <resultsFileFormat>xml</resultsFileFormat>
-                            <testResultsTimestamp>true</testResultsTimestamp>                    
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-	
+		<profile>
+			<id>performance</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.lazerycode.jmeter</groupId>
+						<artifactId>jmeter-maven-plugin</artifactId>
+						<version>2.7.0</version>
+						<executions>
+							<execution>
+								<id>jmeter-tests</id>
+								<goals>
+									<goal>jmeter</goal>
+								</goals>
+								<phase>verify</phase>
+							</execution>
+						</executions>
+						<configuration>
+							<generateReports>true</generateReports>
+							<resultsFileFormat>xml</resultsFileFormat>
+							<testResultsTimestamp>true</testResultsTimestamp>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
