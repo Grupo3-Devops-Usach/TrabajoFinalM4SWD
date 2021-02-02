@@ -20,9 +20,9 @@ pipeline {
             }
         }
 
-        stage('Postman Newman') {
+        stage('Postman') {
             steps {
-                bat 'newman run Dxc.postman_collection.json'
+                bat 'newman run Dxc.postman_collection1.json'
             }
         }
     }
