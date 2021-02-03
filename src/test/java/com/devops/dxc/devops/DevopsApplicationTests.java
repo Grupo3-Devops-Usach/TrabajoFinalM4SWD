@@ -1,6 +1,6 @@
 package com.devops.dxc.devops;
 
-import static com.devops.dxc.devops.model.Util.getUf;
+import static com.devops.dxc.devops.model.Util.validaFecha;
 import static org.springframework.test.util.AssertionErrors.assertEquals;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 
@@ -77,7 +77,7 @@ class DevopsApplicationTests {
 
 	@Test
 	void testUFValida() {
-		int uf = getUf();
+		int uf = validaFecha().getValorUf();
 		assertTrue("UF mayor a 29000", uf > 29000);
 	}
 
@@ -92,41 +92,41 @@ class DevopsApplicationTests {
 	void testImpuesto2() {	// 669,910 - 1,488,690
 		Dxc diezxciento = new Dxc(50000000,1200000);
 		diezxciento.getDxc();
-		assertEquals("Impuesto 0.04 segundo rango de sueldos",(int)(0.04*150*getUf()), diezxciento.getImpuesto());
+		assertEquals("Impuesto 0.04 segundo rango de sueldos",(int)(0.04*150* validaFecha().getValorUf()), diezxciento.getImpuesto());
 	}
 
 	@Test
 	void testImpuesto3() {	// 1,488,690 - 2,481,150
 		Dxc diezxciento = new Dxc(50000000,1700000);
 		diezxciento.getDxc();
-		assertEquals("Impuesto 0.08 tercer rango de sueldos",(int)(0.08*150*getUf()), diezxciento.getImpuesto());
+		assertEquals("Impuesto 0.08 tercer rango de sueldos",(int)(0.08*150*validaFecha().getValorUf()), diezxciento.getImpuesto());
 	}
 
 	@Test
 	void testImpuesto4() {	// 2,481,151 - 3,466,667
 		Dxc diezxciento = new Dxc(50000000,2500000);
 		diezxciento.getDxc();
-		assertEquals("Impuesto 0.135 cuarto rango de sueldos",(int)(0.135*150*getUf()), diezxciento.getImpuesto());
+		assertEquals("Impuesto 0.135 cuarto rango de sueldos",(int)(0.135*150*validaFecha().getValorUf()), diezxciento.getImpuesto());
 	}
 
 	@Test
 	void testImpuesto5() {	// 3,466,667 - 4,458,334
 		Dxc diezxciento = new Dxc(50000000,4200000);
 		diezxciento.getDxc();
-		assertEquals("Impuesto 0.23 quinto rango de sueldos",(int)(0.23*150*getUf()), diezxciento.getImpuesto());
+		assertEquals("Impuesto 0.23 quinto rango de sueldos",(int)(0.23*150*validaFecha().getValorUf()), diezxciento.getImpuesto());
 	}
 
 	@Test
 	void testImpuesto6() {	// 4,458,333.4 - 5,950,000
 		Dxc diezxciento = new Dxc(50000000,4700000);
 		diezxciento.getDxc();
-		assertEquals("Impuesto 0.304 sexto rango de sueldos",(int)(0.304*150*getUf()), diezxciento.getImpuesto());
+		assertEquals("Impuesto 0.304 sexto rango de sueldos",(int)(0.304*150*validaFecha().getValorUf()), diezxciento.getImpuesto());
 	}
 
 	@Test
 	void testImpuesto7() {	// > 5,950,000
 		Dxc diezxciento = new Dxc(50000000,6500000);
 		diezxciento.getDxc();
-		assertEquals("Impuesto 0.35 septimo rango de sueldos",(int)(0.35*150*getUf()), diezxciento.getImpuesto());
+		assertEquals("Impuesto 0.35 septimo rango de sueldos",(int)(0.35*150*validaFecha().getValorUf()), diezxciento.getImpuesto());
 	}
 }

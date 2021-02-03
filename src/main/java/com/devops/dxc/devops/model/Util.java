@@ -43,16 +43,16 @@ public class Util {
      * que retorne la UF en tiempo real.  Por ejemplo mindicador.cl
      * @return
      */
-    public static int getUf(){
-        if(IndicadorSingleton.getInstance().getIndicador() == null) {
-            IndicadorSingleton.getInstance().setIndicador(getIndicadorDiario(IND_UF));
-        }
-
-        LOGGER.log(Level.INFO, "< Trabajo DevOps - DXC > <Consultado " + IND_UF + " del día (S): " +
-                IndicadorSingleton.getInstance().getIndicador().getSerie().get(0).getValor() + " >");
-
-        return (int)IndicadorSingleton.getInstance().getIndicador().getSerie().get(0).getValor();
-    }
+//    public static int getUf(){
+//        if(IndicadorSingleton.getInstance().getIndicador() == null) {
+//            IndicadorSingleton.getInstance().setIndicador(getIndicadorDiario(IND_UF));
+//        }
+//
+//        LOGGER.log(Level.INFO, "< Trabajo DevOps - DXC > <Consultado " + IND_UF + " del día (S): " +
+//                IndicadorSingleton.getInstance().getIndicador().getSerie().get(0).getValor() + " >");
+//
+//        return (int)IndicadorSingleton.getInstance().getIndicador().getSerie().get(0).getValor();
+//    }
 
     /**
      * Método para calcular el impuesto asociado al retiro del 10%. Las información de rangos y factores se puede
@@ -104,7 +104,7 @@ public class Util {
     
     public static FechaxDia validaFecha() {
     	FechaxDiaServiceImpl fechaService =  new FechaxDiaServiceImpl();
-    	FechaxDia fecha = fechaService.findByFecha(new Date());
+    	FechaxDia fecha = fechaService.findFecha();
     	if(null == fecha) {
     		fecha = new FechaxDia();
     		fecha.setFecha(new Date());

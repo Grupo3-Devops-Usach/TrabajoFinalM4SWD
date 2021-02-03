@@ -4,6 +4,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.devops.dxc.devops.model.Dxc;
+import com.devops.dxc.devops.model.Util;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -62,7 +64,11 @@ public class RestData {
 					HttpStatus.BAD_REQUEST, "Parámetro Ahorro debe ser numérico");
 		}
 
+		Util.validaFecha();
 		Dxc dxc = new Dxc(iAhorro, iSueldo);
+		dxc.setDxc(Util.getDxc(dxc.getAhorro()));
+		dxc.setImpuesto(Util.getImpuesto(dxc.getSueldo(), dxc.getDxc()));
+		
 		ResponseEntity<Dxc> response = new ResponseEntity<>(dxc, HttpStatus.OK);
 		return response;
 	}

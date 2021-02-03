@@ -24,7 +24,6 @@ public class Dxc implements Serializable{
 	}
 
 	public int getDxc() {
-		this.dxc = Util.getDxc(ahorro);
 		return dxc;
 	}
 
@@ -42,7 +41,6 @@ public class Dxc implements Serializable{
 	}
 
 	public int getImpuesto() {
-		this.impuesto = Util.getImpuesto(sueldo, dxc);
 		return impuesto;
 	}
 
