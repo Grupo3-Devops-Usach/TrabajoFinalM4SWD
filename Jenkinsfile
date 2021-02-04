@@ -5,21 +5,21 @@ pipeline {
         stage('Build') {
             steps {
 				figlet "Build"
-                bat 'mvn clean'
+                bat 'mvnw clean'
             }
         }
 
         stage('Compile') {
             steps {
 				figlet "Compile"
-                bat 'mvn compile'
+                bat 'mvnw compile'
             }
         }
 		
 		stage('Test') {
             steps {
 				figlet "Test"
-				bat 'mvn verify -Pperformance'
+				bat 'mvnw verify -Pperformance'
             }
         }
 		
@@ -34,7 +34,7 @@ pipeline {
 		stage('JMeter') {
             steps {
 				figlet "JMeter"
-				bat 'mvn verify -Pperformance'
+				bat 'mvnw verify -Pperformance'
             }
         }
 
