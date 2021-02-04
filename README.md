@@ -1,4 +1,4 @@
-# Trabajo Final Módulo 4 - Pruenas Automatizadas
+# Trabajo Final Módulo 4 - Pruebas Automatizadas
 # Grupo 3
 
 ## Integrantes
