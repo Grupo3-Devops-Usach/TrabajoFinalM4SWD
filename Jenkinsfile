@@ -34,7 +34,7 @@ pipeline {
         stage('Test WS Newman') {
             steps {
 				figlet "Test WS Newman"
-                bat "newman run Dxc.postman_collection.json --reporters cli,junit,htmlextra,json --reporter-htmlextra-export newman/DXC.html --reporter-junit-export newman/DXC.xml --reporter-json-export newman/DXC.json --disable-unicode --reporter-htmlextra-title 'Pruebas Automatizadas - Grupo 3'"
+                bat "newman run Dxc.postman_collection.json --reporters cli,junit,htmlextra,json --reporter-htmlextra-export newman/DXC.html --reporter-junit-export newman/DXC.xml --reporter-json-export newman/DXC.json --disable-unicode"
             }
         }
     }
