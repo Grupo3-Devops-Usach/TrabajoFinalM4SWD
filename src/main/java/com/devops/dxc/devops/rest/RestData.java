@@ -3,6 +3,8 @@ package com.devops.dxc.devops.rest;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.devops.dxc.devops.model.Dxc;
+import com.devops.dxc.devops.service.IUfService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +16,10 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping(path = "/rest/msdxc")
 @CrossOrigin("*")
 public class RestData {
-	
+
+	@Autowired
+	IUfService ufService;
+
 	private final static Logger LOGGER = Logger.getLogger("devops.subnivel.Control");
 
 	@GetMapping(path = "/dxc", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -60,8 +65,9 @@ public class RestData {
 					HttpStatus.BAD_REQUEST, "Parámetro Ahorro debe ser numérico");
 		}
 
-		Dxc dxc = new Dxc(iAhorro, iSueldo);
+		Dxc dxc = ufService.obtenerDiezxCiento(iAhorro, iSueldo);
 		ResponseEntity<Dxc> response = new ResponseEntity<>(dxc, HttpStatus.OK);
+
 		return response;
 	}
 }
