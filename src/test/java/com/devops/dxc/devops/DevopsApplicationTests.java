@@ -26,7 +26,6 @@ class DevopsApplicationTests {
 	}
 
 	@Test
-
 	void testSaldoRetiroMaximo(){
 		Dxc diezxciento = new Dxc(70000000, 0);
 		diezxciento.getDxc();
