@@ -40,7 +40,7 @@ pipeline {
 
         stage('Postman') {
             steps {
-                bat 'newman run Dxc.postman_collection1.json --disable-unicode'
+                bat 'newman run Dxc.postman_collection.json --disable-unicode'
             }
         }
     }
