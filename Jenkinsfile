@@ -1,47 +1,61 @@
-pipeline {
+pipeline
+{
     agent any
 
-    stages {
-        stage('Build') {
-            steps {
+    stages
+    {
+        stage('Build')
+        {
+            steps
+            {
 				figlet "Build"
-                bat 'mvn clean'
+                sh 'mvn clean'
             }
         }
 
-        stage('Compile') {
-            steps {
+        stage('Compile')
+        {
+            steps
+            {
 				figlet "Compile"
-                bat 'mvn compile'
+                sh 'mvn compile'
             }
         }
 		
-		stage('Test') {
-            steps {
+		stage('Test')
+		{
+            steps
+            {
 				figlet "Test"
-				bat 'mvn verify -Pperformance'
+				sh 'mvn verify -Pperformance'
             }
         }
 		
-		stage('Run Jar') {
-            steps {
+		stage('Run Jar')
+		{
+            steps
+            {
 				figlet "Run Jar"
-                bat 'start mvnw.cmd spring-boot:run'
+                sh 'mvn spring-boot:run'
                 sleep 10
             }
         }
 		
-		stage('JMeter') {
-            steps {
+		stage('JMeter')
+		{
+            steps
+            {
 				figlet "JMeter"
-				bat 'mvn verify -Pperformance'
+				sh 'mvn verify -Pperformance'
             }
         }
 
-        stage('Test WS Newman') {
-            steps {
+        stage('Test WS Newman')
+        {
+            steps
+            {
 				figlet "Test WS Newman"
-                bat "newman run Dxc.postman_collection.json"
+                sh "newman run Dxc.postman_collection.json"
             }
         }
     }
