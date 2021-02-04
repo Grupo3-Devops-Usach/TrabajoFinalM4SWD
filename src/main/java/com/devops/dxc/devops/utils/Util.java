@@ -1,7 +1,6 @@
-package com.devops.dxc.devops.model;
+package com.devops.dxc.devops.utils;
 
-import com.google.gson.Gson;
-import org.springframework.http.ResponseEntity;
+import com.devops.dxc.devops.model.Indicador;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.SimpleDateFormat;
@@ -21,8 +20,7 @@ public class Util {
      * @param ahorro
      * @return
      */
-    public static int getDxc(int ahorro){
-        int uf = getUf();
+    public static int getDxc(int ahorro, int uf){
 
         if(((ahorro*0.1)/uf) > 150 ){
             return (int) (150*uf) ;
@@ -33,22 +31,6 @@ public class Util {
         } else {
             return (int) (ahorro*0.1);
         }
-    }
-
-    /**
-     * Método que retorna el valor de la UF.  Este método debe ser refactorizado por una integración a un servicio
-     * que retorne la UF en tiempo real.  Por ejemplo mindicador.cl
-     * @return
-     */
-    public static int getUf(){
-        if(IndicadorSingleton.getInstance().getIndicador() == null) {
-            IndicadorSingleton.getInstance().setIndicador(getIndicadorDiario(IND_UF));
-        }
-
-        LOGGER.log(Level.INFO, "< Trabajo DevOps - DXC > <Consultado " + IND_UF + " del día (S): " +
-                IndicadorSingleton.getInstance().getIndicador().getSerie().get(0).getValor() + " >");
-
-        return (int)IndicadorSingleton.getInstance().getIndicador().getSerie().get(0).getValor();
     }
 
     /**
@@ -89,10 +71,7 @@ public class Util {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String fecha = simpleDateFormat.format(Calendar.getInstance().getTime());
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> call= restTemplate.getForEntity("https://mindicador.cl/api/" + ind + "/" + fecha, String.class);
-
-        Gson gson = new Gson();
-        Indicador indicador = gson.fromJson(call.getBody().toLowerCase(), Indicador.class);
+        Indicador indicador = restTemplate.getForObject("https://mindicador.cl/api/" + ind + "/" + fecha , Indicador.class);
 
         LOGGER.log(Level.INFO, "< Trabajo DevOps - DXC > <Consultado " + ind + " del día: " + indicador.getSerie().get(0).getValor() + " >");
 
