@@ -1,6 +1,8 @@
 package com.devops.dxc.devops.utils;
 
 import com.devops.dxc.devops.model.Indicador;
+import com.google.gson.Gson;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.SimpleDateFormat;
@@ -20,7 +22,7 @@ public class Util {
      * @param ahorro
      * @return
      */
-    public static int getDxc(int ahorro, int uf){
+    public static int getDxc(int ahorro, double uf){
 
         if(((ahorro*0.1)/uf) > 150 ){
             return (int) (150*uf) ;
@@ -71,7 +73,10 @@ public class Util {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String fecha = simpleDateFormat.format(Calendar.getInstance().getTime());
         RestTemplate restTemplate = new RestTemplate();
-        Indicador indicador = restTemplate.getForObject("https://mindicador.cl/api/" + ind + "/" + fecha , Indicador.class);
+        ResponseEntity<String> call= restTemplate.getForEntity("https://mindicador.cl/api/" + ind + "/" + fecha, String.class);
+
+        Gson gson = new Gson();
+        Indicador indicador = gson.fromJson(call.getBody().toLowerCase(), Indicador.class);
 
         LOGGER.log(Level.INFO, "< Trabajo DevOps - DXC > <Consultado " + ind + " del día: " + indicador.getSerie().get(0).getValor() + " >");
 

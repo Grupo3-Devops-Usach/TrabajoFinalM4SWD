@@ -42,7 +42,7 @@ public class UfServiceImpl implements IUfService {
 		Uf uf = new Uf();
 		if (findAll().isEmpty()) {
 			uf.setFecha(new Date());
-			uf.setValor((int) Util.getIndicadorDiario(IND_UF).getSerie().get(0).getValor());
+			uf.setValor(Util.getIndicadorDiario(IND_UF).getSerie().get(0).getValor());
 			save(uf);
 		} else {
 			uf = findAll().get(0);
