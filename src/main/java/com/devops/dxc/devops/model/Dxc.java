@@ -1,5 +1,7 @@
 package com.devops.dxc.devops.model;
 
+import com.devops.dxc.devops.utils.Util;
+
 import java.io.Serializable;
 
 public class Dxc implements Serializable{
@@ -24,7 +26,6 @@ public class Dxc implements Serializable{
 	}
 
 	public int getDxc() {
-		this.dxc = Util.getDxc(ahorro);
 		return dxc;
 	}
 

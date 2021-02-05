@@ -15,25 +15,18 @@ pipeline {
                 bat 'mvn compile'
             }
         }
-		
-		stage('Test') {
-            steps {
-				figlet "Test"
-				bat 'mvn verify -Pperformance'
-            }
-        }
-		
+
 		stage('Run Jar') {
             steps {
-				figlet "Run Jar"
+                figlet "Run Jar"
                 bat 'start mvnw.cmd spring-boot:run'
                 sleep 10
             }
         }
 		
-		stage('JMeter') {
+		stage('Test & JMeter') {
             steps {
-				figlet "JMeter"
+				figlet "Test & JMeter"
 				bat 'mvn verify -Pperformance'
             }
         }
@@ -41,7 +34,7 @@ pipeline {
         stage('Test WS Newman') {
             steps {
 				figlet "Test WS Newman"
-                bat "newman run Dxc.postman_collection.json"
+                bat "newman run Dxc.postman_collection.json --reporters cli,junit,htmlextra,json --reporter-htmlextra-export newman/DXC.html --reporter-junit-export newman/DXC.xml --reporter-json-export newman/DXC.json --disable-unicode"
             }
         }
     }

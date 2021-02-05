@@ -1,10 +1,57 @@
 {
 	"info": {
-		"_postman_id": "fa0be18f-a5ad-48fa-808a-bf1f02b9f0a4",
+		"_postman_id": "2c3731c9-0ce8-4d8a-982d-d5d22797de60",
 		"name": "Dxc",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "UF Valida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codigo de estado 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    pm.globals.set(\"UF\", jsonData.serie[0].valor);\r",
+							"    console.log(\"UF:\", pm.globals.get(\"UF\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"UF Mayor a 29000\", () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    pm.expect(pm.globals.get(\"UF\")).to.be.above(29000);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 5000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(5000);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://mindicador.cl/api/uf/{{today}}",
+					"protocol": "https",
+					"host": [
+						"mindicador",
+						"cl"
+					],
+					"path": [
+						"api",
+						"uf",
+						"{{today}}"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "Test Iniciales",
 			"event": [
@@ -81,24 +128,28 @@
 			"response": []
 		},
 		{
-			"name": "UF Valida",
+			"name": "Test sin parámetros",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Codigo de estado 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"    var jsonData = JSON.parse(responseBody);\r",
-							"    pm.globals.set(\"UF\", jsonData.serie[0].valor);\r",
-							"    console.log(\"UF:\", pm.globals.get(\"UF\"));\r",
+							"pm.test(\"Not failing\", function () {\r",
+							"    pm.expect(true).to.eql(true);\r",
 							"});\r",
 							"\r",
-							"pm.test(\"UF Mayor a 29000\", () => {\r",
-							"    const responseJson = pm.response.json();\r",
-							"    pm.expect(pm.globals.get(\"UF\")).to.be.above(29000);\r",
+							"pm.test(\"Value error is Bad Request\", () => {\r",
+							"  pm.expect(pm.response.json().error)\r",
+							"    .to.eql(\"Bad Request\");\r",
 							"});\r",
-							""
+							"\r",
+							"pm.test(\"Codigo de estado 400\", () => {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -108,15 +159,73 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://mindicador.cl/api/uf",
-					"protocol": "https",
+					"raw": "http://localhost:8080/rest/msdxc/dxc",
+					"protocol": "http",
 					"host": [
-						"mindicador",
-						"cl"
+						"localhost"
 					],
+					"port": "8080",
 					"path": [
-						"api",
-						"uf"
+						"rest",
+						"msdxc",
+						"dxc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test alfanumérico",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Not failing\", function () {\r",
+							"    pm.expect(true).to.eql(true);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Value error is Bad Request\", () => {\r",
+							"  pm.expect(pm.response.json().error)\r",
+							"    .to.eql(\"Bad Request\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Codigo de estado 400\", () => {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/rest/msdxc/dxc?ahorro=150000A0&sueldo=46000AAA",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rest",
+						"msdxc",
+						"dxc"
+					],
+					"query": [
+						{
+							"key": "ahorro",
+							"value": "150000A0"
+						},
+						{
+							"key": "sueldo",
+							"value": "46000AAA"
+						}
 					]
 				}
 			},
@@ -132,6 +241,14 @@
 							"pm.test(\"Impuesto 0 primer rango de sueldos\", () => {\r",
 							"    const responseJson = pm.response.json();\r",
 							"    pm.expect(responseJson.impuesto).to.eql(Math.trunc(0*150*(pm.globals.get(\"UF\"))));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -187,6 +304,14 @@
 							"pm.test(\"Impuesto 0.04 segundo rango de sueldos\", () => {\r",
 							"    const responseJson = pm.response.json();\r",
 							"    pm.expect(responseJson.impuesto).to.eql(Math.trunc(0.04*150*(pm.globals.get(\"UF\"))));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
 							"});\r",
 							""
 						],
@@ -254,6 +379,14 @@
 							"    const responseJson = pm.response.json();\r",
 							"    pm.expect(responseJson.impuesto).to.eql(Math.trunc(0.08*150*(pm.globals.get(\"UF\"))));\r",
 							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
 							""
 						],
 						"type": "text/javascript"
@@ -309,6 +442,14 @@
 							"pm.test(\"Impuesto 0.135 tercer rango de sueldos\", () => {\r",
 							"    const responseJson = pm.response.json();\r",
 							"    pm.expect(responseJson.impuesto).to.eql(Math.trunc(0.135*150*(pm.globals.get(\"UF\"))));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
 							"});\r",
 							""
 						],
@@ -366,6 +507,14 @@
 							"    const responseJson = pm.response.json();\r",
 							"    pm.expect(responseJson.impuesto).to.eql(Math.trunc(0.23*150*(pm.globals.get(\"UF\"))));\r",
 							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
 							""
 						],
 						"type": "text/javascript"
@@ -420,7 +569,16 @@
 						"exec": [
 							"pm.test(\"Impuesto 0.304 tercer rango de sueldos\", () => {\r",
 							"    const responseJson = pm.response.json();\r",
-							"    pm.expect(responseJson.impuesto).to.eql(Math.trunc(0.304*150*(pm.globals.get(\"UF\"))));\r",
+							"    var retMax = Math.floor(pm.globals.get(\"UF\") * 150);\r",
+							"    pm.expect(responseJson.impuesto).to.eql(Math.trunc(0.304 * retMax));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
 							"});\r",
 							""
 						],
@@ -476,9 +634,17 @@
 						"exec": [
 							"pm.test(\"Impuesto 0.35 tercer rango de sueldos\", () => {\r",
 							"    const responseJson = pm.response.json();\r",
-							"    pm.expect(responseJson.impuesto).to.eql(Math.trunc(0.35*150*(pm.globals.get(\"UF\"))));\r",
+							"    var retMax = Math.floor(pm.globals.get(\"UF\") * 150);\r",
+							"    pm.expect(responseJson.impuesto).to.eql(Math.trunc(0.35 * retMax));\r",
 							"});\r",
-							""
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -524,6 +690,14 @@
 							"    const responseJson = pm.response.json();\r",
 							"    pm.expect(responseJson.dxc).to.eql(Math.trunc(0));\r",
 							"    pm.expect(responseJson.saldo).to.eql(Math.trunc(0));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -588,8 +762,17 @@
 						"exec": [
 							"pm.test(\"Retiro Maximo\", () => {\r",
 							"    const responseJson = pm.response.json();\r",
-							"    pm.expect(responseJson.dxc).to.eql(Math.trunc(150*(pm.globals.get(\"UF\"))));\r",
-							"    pm.expect(responseJson.saldo).to.eql(Math.trunc(70000000-(150*(pm.globals.get(\"UF\")))));    \r",
+							"    var dxc = Math.floor(pm.globals.get(\"UF\") * 150);\r",
+							"    pm.expect(responseJson.dxc).to.eql(dxc);\r",
+							"    pm.expect(responseJson.saldo).to.eql(pm.collectionVariables.get('ValAhorro') - dxc);    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
 							"});\r",
 							""
 						],
@@ -648,6 +831,14 @@
 							"    pm.expect(responseJson.dxc).to.eql(1000000);\r",
 							"    pm.expect(responseJson.saldo).to.eql(pm.collectionVariables.get(\"ValAhorro\")-(1000000));\r",
 							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
 							""
 						],
 						"type": "text/javascript"
@@ -704,6 +895,14 @@
 							"    const responseJson = pm.response.json();\r",
 							"    pm.expect(responseJson.dxc).to.eql(900000);\r",
 							"    pm.expect(responseJson.saldo).to.eql(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
 							"});\r",
 							""
 						],
@@ -762,6 +961,14 @@
 							"    pm.expect(responseJson.dxc).to.eql(1500000);\r",
 							"    pm.expect(responseJson.saldo).to.eql(pm.collectionVariables.get(\"ValAhorro\")-(pm.collectionVariables.get(\"ValAhorro\")*0.1));\r",
 							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
 							""
 						],
 						"type": "text/javascript"
@@ -796,6 +1003,27 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const moment = require('moment');",
+					"pm.globals.set(\"today\", moment().format(\"DD-MM-YYYY\"));"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"variable": [
