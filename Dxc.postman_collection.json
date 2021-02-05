@@ -14,7 +14,7 @@
 						"exec": [
 							"const responseJson = pm.response.json();",
 							"",
-							"pm.test(\"Código de estado 200\", function(){",
+							"pm.test(\"Codigo de estado 200\", function(){",
 							"    pm.response.to.have.status(200)",
 							"});",
 							"",
@@ -34,7 +34,7 @@
 							"  }",
 							"};",
 							"",
-							"pm.test('Validación de esquema json correcto', function() {",
+							"pm.test('Validacion de esquema json correcto', function() {",
 							"  pm.response.to.have.jsonSchema(schema);",
 							"});"
 						],
@@ -81,13 +81,13 @@
 			"response": []
 		},
 		{
-			"name": "UF Válida",
+			"name": "UF Valida",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
+							"pm.test(\"Codigo de estado 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"    var jsonData = JSON.parse(responseBody);\r",
 							"    pm.globals.set(\"UF\", jsonData.serie[0].valor);\r",
@@ -570,7 +570,7 @@
 			"response": []
 		},
 		{
-			"name": "Retiro Máximo",
+			"name": "Retiro Maximo",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -586,7 +586,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Retiro Máximo\", () => {\r",
+							"pm.test(\"Retiro Maximo\", () => {\r",
 							"    const responseJson = pm.response.json();\r",
 							"    pm.expect(responseJson.dxc).to.eql(Math.trunc(150*(pm.globals.get(\"UF\"))));\r",
 							"    pm.expect(responseJson.saldo).to.eql(Math.trunc(70000000-(150*(pm.globals.get(\"UF\")))));    \r",
@@ -627,7 +627,7 @@
 			"response": []
 		},
 		{
-			"name": "Retiro 1 Millón",
+			"name": "Retiro 1 Millon",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -643,7 +643,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Retiro 1 Millón\", () => {\r",
+							"pm.test(\"Retiro 1 Millon\", () => {\r",
 							"    const responseJson = pm.response.json();\r",
 							"    pm.expect(responseJson.dxc).to.eql(1000000);\r",
 							"    pm.expect(responseJson.saldo).to.eql(pm.collectionVariables.get(\"ValAhorro\")-(1000000));\r",
