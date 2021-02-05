@@ -16,7 +16,7 @@ public class Uf implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 	
-	private Integer valor;
+	private Double valor;
 
 	public Long getId() {
 		return id;
@@ -34,11 +34,11 @@ public class Uf implements Serializable{
 		this.fecha = fecha;
 	}
 
-	public Integer getValor() {
+	public Double getValor() {
 		return valor;
 	}
 
-	public void setValor(Integer valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 	
