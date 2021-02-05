@@ -5,14 +5,14 @@ pipeline {
         stage('Build') {
             steps {
 				figlet "Build"
-                bat 'mvn clean'
+                bat 'mvnw clean'
             }
         }
 
         stage('Compile') {
             steps {
 				figlet "Compile"
-                bat 'mvn compile'
+                bat 'mvnw compile'
             }
         }
 
@@ -27,7 +27,7 @@ pipeline {
 		stage('Test & JMeter & Selenium') {
             steps {
 				figlet "Test & JMeter& Selenium"
-				bat 'mvn verify -Pperformance'
+				bat 'mvnw verify -Pperformance'
             }
         }
 
