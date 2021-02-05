@@ -43,6 +43,7 @@ public class DevopsSeleniumTests {
 
     @Test
     public void testSinAhorro() throws InterruptedException {
+        driver.findElement(By.id("btnReset")).click();
         driver.findElement(By.id("ahorroId")).click();
         driver.findElement(By.id("ahorroId")).sendKeys("0");
         driver.findElement(By.id("sueldoId")).click();
@@ -62,6 +63,7 @@ public class DevopsSeleniumTests {
     public void testAhorroMaximo() throws InterruptedException {
         double uf = ufService.validaUf().getValor();
 
+        driver.findElement(By.id("btnReset")).click();
         driver.findElement(By.id("ahorroId")).click();
         driver.findElement(By.id("ahorroId")).sendKeys("70000000");
         driver.findElement(By.id("sueldoId")).click();
@@ -77,6 +79,7 @@ public class DevopsSeleniumTests {
 
     @Test
     public void testRetiroUnMillon() throws InterruptedException {
+        driver.findElement(By.id("btnReset")).click();
         driver.findElement(By.id("ahorroId")).click();
         driver.findElement(By.id("ahorroId")).sendKeys("2000000");
         driver.findElement(By.id("sueldoId")).click();
@@ -92,6 +95,7 @@ public class DevopsSeleniumTests {
 
     @Test
     public void testRetiroTotalAhorro() throws InterruptedException {
+        driver.findElement(By.id("btnReset")).click();
         driver.findElement(By.id("ahorroId")).click();
         driver.findElement(By.id("ahorroId")).sendKeys("900000");
         driver.findElement(By.id("sueldoId")).click();
@@ -107,6 +111,7 @@ public class DevopsSeleniumTests {
 
     @Test
     public void testRetiroDiezPorciento() throws InterruptedException {
+        driver.findElement(By.id("btnReset")).click();
         driver.findElement(By.id("ahorroId")).click();
         driver.findElement(By.id("ahorroId")).sendKeys("15000000");
         driver.findElement(By.id("sueldoId")).click();
@@ -122,6 +127,7 @@ public class DevopsSeleniumTests {
 
     @Test
     public void testImpuesto1() throws InterruptedException {
+        driver.findElement(By.id("btnReset")).click();
         driver.findElement(By.id("ahorroId")).click();
         driver.findElement(By.id("ahorroId")).sendKeys("5000000");
         driver.findElement(By.id("sueldoId")).click();
@@ -136,6 +142,7 @@ public class DevopsSeleniumTests {
     @Test
     public void testImpuesto2() throws InterruptedException {
         double uf = ufService.validaUf().getValor();
+        driver.findElement(By.id("btnReset")).click();
         driver.findElement(By.id("ahorroId")).click();
         driver.findElement(By.id("ahorroId")).sendKeys("50000000");
         driver.findElement(By.id("sueldoId")).click();
@@ -150,6 +157,7 @@ public class DevopsSeleniumTests {
     @Test
     public void testImpuesto3() throws InterruptedException {
         double uf = ufService.validaUf().getValor();
+        driver.findElement(By.id("btnReset")).click();
         driver.findElement(By.id("ahorroId")).click();
         driver.findElement(By.id("ahorroId")).sendKeys("50000000");
         driver.findElement(By.id("sueldoId")).click();
@@ -164,6 +172,7 @@ public class DevopsSeleniumTests {
     @Test
     public void testImpuesto4() throws InterruptedException {
         double uf = ufService.validaUf().getValor();
+        driver.findElement(By.id("btnReset")).click();
         driver.findElement(By.id("ahorroId")).click();
         driver.findElement(By.id("ahorroId")).sendKeys("50000000");
         driver.findElement(By.id("sueldoId")).click();
@@ -178,6 +187,7 @@ public class DevopsSeleniumTests {
     @Test
     public void testImpuesto5() throws InterruptedException {
         double uf = ufService.validaUf().getValor();
+        driver.findElement(By.id("btnReset")).click();
         driver.findElement(By.id("ahorroId")).click();
         driver.findElement(By.id("ahorroId")).sendKeys("50000000");
         driver.findElement(By.id("sueldoId")).click();
@@ -192,6 +202,7 @@ public class DevopsSeleniumTests {
     @Test
     public void testImpuesto6() throws InterruptedException {
         double uf = ufService.validaUf().getValor();
+        driver.findElement(By.id("btnReset")).click();
         driver.findElement(By.id("ahorroId")).click();
         driver.findElement(By.id("ahorroId")).sendKeys("50000000");
         driver.findElement(By.id("sueldoId")).click();
@@ -206,6 +217,7 @@ public class DevopsSeleniumTests {
     @Test
     public void testImpuesto7() throws InterruptedException {
         double uf = ufService.validaUf().getValor();
+        driver.findElement(By.id("btnReset")).click();
         driver.findElement(By.id("ahorroId")).click();
         driver.findElement(By.id("ahorroId")).sendKeys("50000000");
         driver.findElement(By.id("sueldoId")).click();

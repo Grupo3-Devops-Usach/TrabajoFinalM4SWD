@@ -17,7 +17,7 @@ class DevopsApplicationTests {
 
 	@Test
 	void testSinAhorro() {
-		Dxc diezxciento = new Dxc(0, 0);
+		Dxc diezxciento = ufService.obtenerDiezxCiento(0, 0);
 		assertEquals("Sin ahorro", 0, diezxciento.getDxc());
 	}
 

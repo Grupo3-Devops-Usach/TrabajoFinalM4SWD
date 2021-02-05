@@ -24,9 +24,9 @@ pipeline {
             }
         }
 		
-		stage('Test & JMeter') {
+		stage('Test & JMeter & Selenium') {
             steps {
-				figlet "Test & JMeter"
+				figlet "Test & JMeter& Selenium"
 				bat 'mvn verify -Pperformance'
             }
         }
