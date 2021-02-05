@@ -520,7 +520,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Impuesto 0 primer rango de sueldos\", () => {\r",
+							"pm.test(\"Sin Ahorro\", () => {\r",
 							"    const responseJson = pm.response.json();\r",
 							"    pm.expect(responseJson.dxc).to.eql(Math.trunc(0));\r",
 							"    pm.expect(responseJson.saldo).to.eql(Math.trunc(0));\r",
