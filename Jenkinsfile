@@ -8,7 +8,7 @@ pipeline
         {
             steps
             {
-				figlet "Build"
+                figlet "Build"
                 sh 'mvn clean'
             }
         }
@@ -17,36 +17,36 @@ pipeline
         {
             steps
             {
-				figlet "Compile"
+                figlet "Compile"
                 sh 'mvn compile'
             }
         }
-		
-		stage('Test')
-		{
+        
+        stage('Test')
+        {
             steps
             {
-				figlet "Test"
-				sh 'mvn verify -Pperformance'
+                figlet "Test"
+                sh 'mvn verify -Pperformance'
             }
         }
-		
-		stage('Run Jar')
-		{
+        
+        stage('Run Jar')
+        {
             steps
             {
-				figlet "Run Jar"
+                figlet "Run Jar"
                 sh 'mvn spring-boot:run'
                 sleep 10
             }
         }
-		
-		stage('JMeter')
-		{
+        
+        stage('JMeter')
+        {
             steps
             {
-				figlet "JMeter"
-				sh 'mvn verify -Pperformance'
+                figlet "JMeter"
+                sh 'mvn verify -Pperformance'
             }
         }
 
@@ -54,7 +54,7 @@ pipeline
         {
             steps
             {
-				figlet "Test WS Newman"
+                figlet "Test WS Newman"
                 sh "newman run Dxc.postman_collection.json"
             }
         }
